@@ -30,7 +30,7 @@ class MailjetTest extends TestCase
             ],
             [
                 'bounce',
-                ProviderInterface::EVENT_BOUNCE_HARD,
+                ProviderInterface::EVENT_BOUNCE_SOFT,
             ],
             [
                 'open',
@@ -67,6 +67,22 @@ class MailjetTest extends TestCase
                 ProviderInterface::EVENT_BLOCKED,
                 'recipient@example.com',
                 'preblocked',
+                null,
+                null,
+            ],
+            [
+                'bounce_hard.json',
+                ProviderInterface::EVENT_BOUNCE_HARD,
+                'recipient@example.com',
+                '',
+                null,
+                null,
+            ],
+            [
+                'bounce_soft.json',
+                ProviderInterface::EVENT_BOUNCE_SOFT,
+                'recipient@example.com',
+                '',
                 null,
                 null,
             ],

@@ -23,7 +23,7 @@ class Mailjet extends AbstractProvider
     protected $_typesMap = [
         'sent' => ProviderInterface::EVENT_SENT,
         'blocked' => ProviderInterface::EVENT_BLOCKED,
-        'bounce' => ProviderInterface::EVENT_BOUNCE_HARD,
+        'bounce' => ProviderInterface::EVENT_BOUNCE_SOFT,
         'open' => ProviderInterface::EVENT_OPENED,
         'click' => ProviderInterface::EVENT_CLICK,
         'unsub' => ProviderInterface::EVENT_UNSUB,
@@ -49,6 +49,11 @@ class Mailjet extends AbstractProvider
 
         if ($this->_type === ProviderInterface::EVENT_CLICK) {
             $this->_url = $data['url'] ?? null;
+        }
+
+        if ($event === 'bounce') {
+            $hardBounce = $data['hard_bounce'] ?? null;
+            $this->_type = $hardBounce ? ProviderInterface::EVENT_BOUNCE_HARD : ProviderInterface::EVENT_BOUNCE_SOFT;
         }
 
         $this->_raw = $data;
