@@ -20,7 +20,7 @@ use WHEP\ProviderInterface;
  */
 class Mailjet extends AbstractProvider
 {
-    protected $_typesMap = [
+    protected array $_typesMap = [
         'sent' => ProviderInterface::EVENT_SENT,
         'blocked' => ProviderInterface::EVENT_BLOCKED,
         'bounce' => ProviderInterface::EVENT_BOUNCE_SOFT,
@@ -37,11 +37,6 @@ class Mailjet extends AbstractProvider
     {
         parent::_load($data);
 
-        $event = $data['event'] ?? null;
-
-        // Type
-        $this->_type = $this->_typesMap[$event] ?? ProviderInterface::EVENT_ERROR;
-
         $this->_recipient = $data['email'] ?? null;
 
         $this->_smtp = $data['smtp_reply'] ?? null;
@@ -51,6 +46,7 @@ class Mailjet extends AbstractProvider
             $this->_url = $data['url'] ?? null;
         }
 
+        $event = $data['event'] ?? null;
         if ($event === 'bounce') {
             $hardBounce = $data['hard_bounce'] ?? null;
             $this->_type = $hardBounce ? ProviderInterface::EVENT_BOUNCE_HARD : ProviderInterface::EVENT_BOUNCE_SOFT;
