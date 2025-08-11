@@ -15,26 +15,30 @@ composer require erwane/whep-mailjet
 ```
 
 ```php
-use WHEP\Client;
-use WHEP\WebhookProviderException;
-
-$provider = Client::getProvider('mailjet', [
-    'callbacks' => [
-        ProviderInterface::EVENT_BLOCKED => [$this, 'callbackInvalidate'],
-        ProviderInterface::EVENT_BOUNCE_QUOTA => [$this, 'callbackUnsub'],
-    ],
-]);
+use WHEP\Exception\IpException;  
+use WHEP\Exception\ProviderException;  
+use WHEP\Factory;  
 
 try {
+    $provider = Factory::provider('mailjet', [
+        'client_ip' => $_SERVER['REMOTE_ADDR'] ?? null, // Use method from your framework to get the ServerRequest client ip.
+        'callbacks' => [
+            ProviderInterface::EVENT_BLOCKED => [$this, 'callbackInvalidate'],
+            ProviderInterface::EVENT_BOUNCE_QUOTA => [$this, 'callbackUnsub'],
+        ],
+    ]);
+
     // process the data.
     $provider->process($webhookData);
     
     // Data available from provider getters.
-    $email = $provider->getRecipient();
+    $recipient = $provider->getRecipient();
     
     // Launch callbacks
     $provider->callback();
-} catch (WebhookProviderException $e) {
+} catch (IpException $e) {
+    // log ?
+} catch (ProviderException $e) {
     // log ?
 }
 ```

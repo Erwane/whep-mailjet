@@ -12,7 +12,7 @@ namespace WHEP\Test\TestCase;
 
 use PHPUnit\Framework\TestCase;
 use ResourceHelper\File;
-use WHEP\Client;
+use WHEP\Factory;
 use WHEP\ProviderInterface;
 
 class MailjetTest extends TestCase
@@ -54,7 +54,7 @@ class MailjetTest extends TestCase
     /** @dataProvider dataTypesMap */
     public function testTypesMap($event, $expected): void
     {
-        $p = Client::getProvider('mailjet');
+        $p = Factory::provider('mailjet', ['check_ip' => false]);
         $p->process(['event' => $event]);
         $this->assertEquals($expected, $p->getType());
     }
@@ -119,7 +119,7 @@ class MailjetTest extends TestCase
         $json = File::getContent($resource);
         $data = json_decode($json, true);
 
-        $p = Client::getProvider('mailjet');
+        $p = Factory::provider('mailjet', ['client_ip' => '185.211.120.0']);
         $p->process($data);
 
         $this->assertEquals($type, $p->getType());
