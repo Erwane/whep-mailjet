@@ -10,15 +10,14 @@ declare(strict_types=1);
 
 namespace WHEP\Test\TestCase;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ResourceHelper\File;
-use WHEP\Client;
-use WHEP\Provider\Mailjet;
+use WHEP\Factory;
 use WHEP\ProviderInterface;
 
-#[CoversClass(Mailjet::class)]
+/**
+ * @covers \WHEP\Provider\Mailjet
+ */
 class MailjetTest extends TestCase
 {
     public static function dataTypesMap(): array
@@ -55,10 +54,10 @@ class MailjetTest extends TestCase
         ];
     }
 
-    #[DataProvider('dataTypesMap')]
+    /** @dataProvider dataTypesMap */
     public function testTypesMap($event, $expected): void
     {
-        $p = Client::getProvider('mailjet');
+        $p = Factory::provider('mailjet', ['check_ip' => false]);
         $p->process(['event' => $event]);
         $this->assertEquals($expected, $p->getType());
     }
@@ -117,13 +116,13 @@ class MailjetTest extends TestCase
         ];
     }
 
-    #[DataProvider('dataLoad')]
+    /** @dataProvider dataLoad */
     public function testLoad($resource, $type, $recipient, $details, $smtp, $url): void
     {
         $json = File::getContent($resource);
         $data = json_decode($json, true);
 
-        $p = Client::getProvider('mailjet');
+        $p = Factory::provider('mailjet', ['client_ip' => '185.211.120.0']);
         $p->process($data);
 
         $this->assertEquals($type, $p->getType());
