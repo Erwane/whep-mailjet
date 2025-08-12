@@ -2,7 +2,7 @@
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![codecov](https://codecov.io/gh/Erwane/whep-mailjet/branch/1.x/graph/badge.svg?token=5MUECVAIKD)](https://codecov.io/gh/Erwane/whep-mailjet)
-[![Build Status](https://github.com/Erwane/whep-mailjet/actions/workflows/ci.yml/badge.svg?branch=1.x)](https://github.com/Erwane/whep-mailjet/actions)
+[![CI](https://github.com/Erwane/whep-mailjet/actions/workflows/ci.yml/badge.svg?branch=1.x)](https://github.com/Erwane/whep-mailjet/actions)
 [![Packagist Downloads](https://img.shields.io/packagist/dt/Erwane/whep-mailjet)](https://packagist.org/packages/Erwane/whep-mailjet)
 [![Packagist Version](https://img.shields.io/packagist/v/Erwane/whep-mailjet)](https://packagist.org/packages/Erwane/whep-mailjet)
 
@@ -15,8 +15,8 @@ composer require erwane/whep-mailjet
 ```
 
 ```php
-use WHEP\Exception\IpException;  
-use WHEP\Exception\ProviderException;  
+use WHEP\Exception\SecurityException;  
+use WHEP\Exception\WHEPException;  
 use WHEP\Factory;  
 
 try {
@@ -36,11 +36,11 @@ try {
     
     // Launch callbacks
     $provider->callback();
-} catch (IpException $e) {
+} catch (SecurityException $e) {
     // log ?
-} catch (ProviderException $e) {
+} catch (WHEPException $e) {
     // log ?
 }
 ```
 
-See [WHEP Client README](https://github.com/Erwane/whep-client) for events and getters.
+See [WHEP Client README](https://github.com/Erwane/whep-client) for options, events and getters.

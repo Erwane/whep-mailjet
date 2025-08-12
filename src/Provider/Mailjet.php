@@ -31,21 +31,23 @@ class Mailjet extends AbstractProvider
     ];
 
     protected $_allowedIpAndNetwork = [
-        // '141.193.32.0/23', // Mailgun
-        // '143.55.236.0/22', // Mailgun
-        // '161.38.204.0/22', // Mailgun
-        // '198.244.60.0/22', // Mailgun
-        // '204.220.160.0/22', // Mailgun
-        // '204.220.164.0/24', // Mailgun
-        // '204.220.177.0/24', // Mailgun
-        // '204.221.12.0/24', // Mailgun
-        '45.14.148.0/24', // Mailjet
-        '45.14.151.0/24', // Mailjet
-        '87.253.232.0/21', // Mailjet
-        '185.211.120.0/22', // Mailjet
-        '185.189.236.0/22', // Mailjet
-        '185.250.236.0/22', // Mailjet
+        '45.14.148.0/24',
+        '45.14.151.0/24',
+        '87.253.232.0/21',
+        '185.211.120.0/22',
+        '185.189.236.0/22',
+        '185.250.236.0/22',
     ];
+
+    /**
+     * @inheritDoc
+     */
+    public function checkSecurity(array $data): ProviderInterface
+    {
+        $this->_checkClientIp($this->_config['client_ip']);
+
+        return $this;
+    }
 
     /**
      * @inheritDoc
