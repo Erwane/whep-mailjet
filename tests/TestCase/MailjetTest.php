@@ -20,6 +20,13 @@ use WHEP\ProviderInterface;
  */
 class MailjetTest extends TestCase
 {
+    public function testCheckIp(): void
+    {
+        $p = Factory::provider('mailjet', ['client_ip' => '185.211.120.0']);
+        $p->process([]);
+        $this->assertTrue($p->securityChecked());
+    }
+
     public static function dataTypesMap(): array
     {
         return [
@@ -122,7 +129,7 @@ class MailjetTest extends TestCase
         $json = File::getContent($resource);
         $data = json_decode($json, true);
 
-        $p = Factory::provider('mailjet', ['client_ip' => '185.211.120.0']);
+        $p = Factory::provider('mailjet', ['check_ip' => false]);
         $p->process($data);
 
         $this->assertEquals($type, $p->getType());
