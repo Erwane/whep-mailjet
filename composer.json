@@ -1,6 +1,6 @@
 {
     "name": "erwane/whep-mailjet",
-    "description": "Mailjet (SendInBlue) webhooks handler",
+    "description": "Mailjet (Sinch) webhooks handler",
     "type": "library",
     "keywords": [
         "webhook",
@@ -22,8 +22,7 @@
     ],
     "require": {
         "php": "^8.1",
-        "ext-json": "*",
-        "erwane/whep-client": "^2.0"
+        "erwane/whep-client": "2.1.*"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^5.0",
