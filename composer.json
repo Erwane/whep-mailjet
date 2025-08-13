@@ -5,7 +5,7 @@
     "keywords": [
         "webhook",
         "mailjet",
-        "sendinblue"
+        "sinch"
     ],
     "homepage": "https://github.com/Erwane/whep-mailjet",
     "support": {
