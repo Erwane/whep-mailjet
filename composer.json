@@ -1,11 +1,11 @@
 {
     "name": "erwane/whep-mailjet",
-    "description": "Mailjet (SendInBlue) webhooks handler",
+    "description": "Mailjet (Sinch) webhooks handler",
     "type": "library",
     "keywords": [
         "webhook",
         "mailjet",
-        "sendinblue"
+        "sinch"
     ],
     "homepage": "https://github.com/Erwane/whep-mailjet",
     "support": {
