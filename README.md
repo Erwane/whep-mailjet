@@ -8,6 +8,10 @@
 
 Webhook handler for [Mailjet](https://www.mailjet.com/) (Sinch) emailing provider.
 
+## Deprecated
+
+Use `erwane/whep`. https://github.com/Erwane/whep
+
 ## Usage
 
 ```shell
